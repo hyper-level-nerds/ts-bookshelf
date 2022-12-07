@@ -22,9 +22,6 @@
         "schema": "node -r ts-node/register -r dotenv/config -r tsconfig-paths/register ./scripts/generate-schema.ts",
         "codegen": "graphql-codegen --config codegen.ts"
     },
-    "bin": {
-        "cage": "./bin/cage.cjs"
-    },
     "files": [
         "dist",
         "yarn.lock",
