@@ -1,11 +1,11 @@
-import { TypeStorage } from "@root/utils/type-storage";
+import { getTypeStorage } from "@utils/type-storage";
 import { ClassData } from "@utils/types";
 
 type DocumentTypeOptions = ClassData["userData"];
 
 export function DocType(options: DocumentTypeOptions): ClassDecorator {
     return target => {
-        TypeStorage.instance.collectClassData({
+        getTypeStorage().collectClassData({
             classType: target,
             userData: {
                 ...options,

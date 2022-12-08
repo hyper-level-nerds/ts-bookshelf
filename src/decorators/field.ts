@@ -1,5 +1,5 @@
 import { DecoratorType, FieldData } from "@utils/types";
-import { TypeStorage } from "@root/utils/type-storage";
+import { getTypeStorage } from "@utils/type-storage";
 
 type DocumentFieldOptions = FieldData["userData"];
 
@@ -19,7 +19,7 @@ export function DocField(fieldData: DocumentFieldOptions): DecoratorType {
             throw new Error("Field decorator can only be used on properties of type Number, String or Boolean!");
         }
 
-        TypeStorage.instance.collectFieldData({
+        getTypeStorage().collectFieldData({
             type,
             fieldName: propertyKey,
             classType: target.constructor,

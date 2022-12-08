@@ -15,7 +15,7 @@ export interface FieldData {
 export interface ClassData {
     className: string;
     classType: ClassType;
-    fields: FieldData[];
+    fieldMap: Record<string, FieldData>;
 
     // user defined
     userData: {

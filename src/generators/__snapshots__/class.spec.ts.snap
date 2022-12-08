@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateDocsForClass() Function should generate documentation correctly 1`] = `
+"# MockedClass (MockedClass)
+
+type 'MockedClass'.
+
+## Fields
+
+### \`test\`
+
+| Name        | Description |
+| ----------- | ----------- |
+| Type        | Boolean     |
+| Nullable    | ❌ No        |
+| Description | test        |
+
+
+
+### \`test2\`
+
+| Name        | Description |
+| ----------- | ----------- |
+| Type        | Boolean     |
+| Nullable    | ✔️ Yes      |
+| Description | test        |
+
+
+"
+`;

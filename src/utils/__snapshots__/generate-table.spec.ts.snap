@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateTableFromField() Function should generate a table correctly 1`] = `
+[
+  "| Name        | Description |
+| ----------- | ----------- |
+| Type        | String      |
+| Nullable    | ❌ No        |
+| Description | test        |",
+  "| Name        | Description |
+| ----------- | ----------- |
+| Type        | Number      |
+| Nullable    | ✔️ Yes      |
+| Description | test        |",
+]
+`;

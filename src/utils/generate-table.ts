@@ -2,12 +2,6 @@ import markdownTable from "markdown-table";
 
 import { FieldData } from "@utils/types";
 
-export function getHeaderGenerator(initialLevel = 1) {
-    return function header(text: string, level: number) {
-        return `${"#".repeat(level + (initialLevel - 1))} ${text}`;
-    };
-}
-
 export function generateTableFromField(field: FieldData) {
     const rows: string[][] = [];
 

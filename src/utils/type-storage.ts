@@ -3,15 +3,12 @@ import { ClassData, ClassType, FieldData } from "@utils/types";
 interface CollectFieldDataOptions extends FieldData {
     classType: ClassType;
 }
-
-interface CollectClassDataOptions extends Omit<ClassData, "className" | "fields"> {
+interface CollectClassDataOptions extends Omit<ClassData, "className" | "fieldMap"> {
     classType: ClassType;
 }
 
-export class TypeStorage {
-    public static readonly instance = new TypeStorage();
-
-    private constructor(private readonly classMap = new Map<ClassType, ClassData>()) {}
+class TypeStorage {
+    public constructor(private readonly classMap = new Map<ClassType, ClassData>()) {}
 
     public get classes() {
         return [...this.classMap.values()];
@@ -19,14 +16,13 @@ export class TypeStorage {
 
     public collectFieldData(fieldData: CollectFieldDataOptions) {
         const classData = this.getClassData(fieldData.classType);
-
-        classData.fields.push({
+        classData.fieldMap[fieldData.fieldName] = {
             type: fieldData.type,
             fieldName: fieldData.fieldName,
             userData: {
                 ...fieldData.userData,
             },
-        });
+        };
     }
     public collectClassData({ classType, userData }: CollectClassDataOptions) {
         const classData = this.getClassData(classType);
@@ -42,7 +38,7 @@ export class TypeStorage {
             const classData: ClassData = {
                 classType,
                 className: classType.name,
-                fields: [],
+                fieldMap: {},
                 userData: {
                     name: classType.name,
                     description: `type '${classType.name}'.`,
@@ -53,11 +49,13 @@ export class TypeStorage {
             return classData;
         }
 
-        const classData = this.classMap.get(classType);
-        if (!classData) {
-            throw new Error("Class data is undefined!");
-        }
-
-        return classData;
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return this.classMap.get(classType)!;
     }
+}
+
+const typeStorage = new TypeStorage();
+
+export function getTypeStorage() {
+    return typeStorage;
 }
