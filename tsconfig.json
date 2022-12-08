@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "declaration": false,
         "moduleResolution": "Node",
         "removeComments": true,
         "emitDecoratorMetadata": true,
@@ -9,7 +8,6 @@
         "target": "es2017",
         "inlineSourceMap": true,
         "resolveJsonModule": true,
-        "outDir": "./dist",
         "esModuleInterop": true,
         "incremental": true,
         "skipLibCheck": true,
@@ -22,10 +20,14 @@
         "strict": true,
         "strictFunctionTypes": true,
         "strictPropertyInitialization": true,
-        "baseUrl": "./",
-        "rootDir": ".",
+        "baseUrl": "./src",
+        "rootDir": "./src",
         "paths": {
-            "@root/*": ["./src/*"]
+            "@root/*": ["./*"],
+            "@generators/*": ["./generators/*"],
+            "@decorators/*": ["./decorators/*"],
+            "@utils/*": ["./utils/*"]
         }
-    }
+    },
+    "include": ["src/**/*"]
 }

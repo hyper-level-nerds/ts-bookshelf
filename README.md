@@ -18,4 +18,4 @@
 
 ## Introduction
 
-`tmd (tee-em-dee)` is a tool for generating markdown documentation from typescript types. 
+`tsmd` is a tool for generating markdown documentation from typescript types. 
