@@ -2,7 +2,7 @@
   <br />
   📚
   <br />
-  tmd
+  ts-md
   <sup>
     <br />
     <br />

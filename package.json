@@ -1,5 +1,5 @@
 {
-    "name": "tmd",
+    "name": "ts-md",
     "description": "generate markdown-based documentation from typescript types",
     "version": "0.0.0",
     "license": "MIT",
@@ -10,7 +10,7 @@
     "typings": "dist/index.d.ts",
     "scripts": {
         "build": "run-s build:*",
-        "build:bundle": "microbundle --name tmd -f cjs,es,modern --target node --no-compress --tsconfig ./tsconfig.build.json",
+        "build:bundle": "microbundle --name ts-md -f cjs,es,modern --target node --no-compress --tsconfig ./tsconfig.build.json",
         "build:copy": "ts-node scripts/build-copy.ts",
         "dev": "node -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
         "watch": "node --watch -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
