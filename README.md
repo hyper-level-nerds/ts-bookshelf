@@ -2,7 +2,7 @@
   <br />
   📚
   <br />
-  ts-md
+  ts-bookshelf
   <sup>
     <br />
     <br />

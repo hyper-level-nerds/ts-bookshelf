@@ -1,5 +1,5 @@
 {
-    "name": "ts-md",
+    "name": "ts-bookshelf",
     "description": "generate markdown-based documentation from typescript types",
     "version": "0.0.0",
     "license": "MIT",
@@ -8,9 +8,13 @@
     "module": "dist/common.m.js",
     "esmodule": "dist/common.esm.js",
     "typings": "dist/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hyper-level-nerds/ts-bookshelf.git"
+    },
     "scripts": {
         "build": "run-s build:*",
-        "build:bundle": "microbundle --name ts-md -f cjs,es,modern --target node --no-compress --tsconfig ./tsconfig.build.json",
+        "build:bundle": "microbundle --name ts-bookshelf -f cjs,es,modern --target node --no-compress --tsconfig ./tsconfig.build.json",
         "build:copy": "ts-node scripts/build-copy.ts",
         "dev": "node -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
         "watch": "node --watch -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
