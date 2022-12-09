@@ -16,10 +16,18 @@ describe("generateTableFromField() Function", () => {
             }),
             generateTableFromField({
                 fieldName: "test",
-                type: Number,
+                type: Boolean,
                 userData: {
                     description: "test",
                     nullable: true,
+                },
+            }),
+            generateTableFromField({
+                fieldName: "test",
+                type: Boolean,
+                isArray: true,
+                userData: {
+                    description: "test",
                 },
             }),
         ]).toMatchSnapshot();

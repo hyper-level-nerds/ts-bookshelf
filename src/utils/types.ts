@@ -1,17 +1,26 @@
 export type DecoratorType = PropertyDecorator & MethodDecorator;
 export type ClassType = Function;
 
-export interface FieldData {
-    type: typeof String | typeof Number | typeof Boolean;
-    fieldName: string;
+type TypeOrArray<T> = T | [T];
+export type TargetTypes = typeof String | typeof Boolean;
+export type AvailableTypes = TypeOrArray<TargetTypes>;
+export type TypeFn = () => AvailableTypes;
 
-    // user defined
-    userData: {
-        description?: string;
-        nullable?: boolean;
-        defaultValue?: any;
-    };
+export interface FieldUserData {
+    description?: string;
+    nullable?: boolean;
+    defaultValue?: any;
 }
+
+export interface BaseFieldData {
+    fieldName: string;
+    userData: FieldUserData;
+}
+export interface FieldData extends BaseFieldData {
+    type: TargetTypes;
+    isArray?: boolean;
+}
+
 export interface ClassData {
     className: string;
     classType: ClassType;

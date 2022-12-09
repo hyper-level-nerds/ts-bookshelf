@@ -18,11 +18,13 @@ describe("TypeStorage class", () => {
     it("should collect field data correctly", () => {
         target.collectFieldData({
             classType: String,
-            fieldName: "test",
-            type: String,
-            userData: {
-                description: "test",
-                nullable: false,
+            field: {
+                fieldName: "test",
+                type: String,
+                userData: {
+                    description: "test",
+                    nullable: false,
+                },
             },
         });
 
@@ -38,11 +40,13 @@ describe("TypeStorage class", () => {
     it("should not collect field data twice", () => {
         const mockedFieldData = {
             classType: String,
-            fieldName: "test",
-            type: String,
-            userData: {
-                description: "test",
-                nullable: false,
+            field: {
+                fieldName: "test",
+                type: String,
+                userData: {
+                    description: "test",
+                    nullable: false,
+                },
             },
         };
 

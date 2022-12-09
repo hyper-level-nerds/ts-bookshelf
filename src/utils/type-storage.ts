@@ -1,6 +1,9 @@
+import cloneDeep from "lodash.clonedeep";
+
 import { ClassData, ClassType, FieldData } from "@utils/types";
 
-interface CollectFieldDataOptions extends FieldData {
+interface CollectFieldDataOptions {
+    field: FieldData;
     classType: ClassType;
 }
 interface CollectClassDataOptions extends Omit<ClassData, "className" | "fieldMap"> {
@@ -14,15 +17,17 @@ class TypeStorage {
         return [...this.classMap.values()];
     }
 
-    public collectFieldData(fieldData: CollectFieldDataOptions) {
-        const classData = this.getClassData(fieldData.classType);
-        classData.fieldMap[fieldData.fieldName] = {
-            type: fieldData.type,
-            fieldName: fieldData.fieldName,
-            userData: {
-                ...fieldData.userData,
-            },
+    public collectFieldData({ field, classType }: CollectFieldDataOptions) {
+        const classData = this.getClassData(classType);
+        const newField = cloneDeep(field);
+        newField.userData = {
+            ...newField.userData,
+            description:
+                newField.userData.description || `field '${newField.fieldName}' with type '${newField.type.name}'.`,
+            nullable: newField.userData.nullable || false,
         };
+
+        classData.fieldMap[field.fieldName] = newField;
     }
     public collectClassData({ classType, userData }: CollectClassDataOptions) {
         const classData = this.getClassData(classType);

@@ -9,8 +9,13 @@ exports[`generateTableFromField() Function should generate a table correctly 1`]
 | Description | test        |",
   "| Name        | Description |
 | ----------- | ----------- |
-| Type        | Number      |
+| Type        | Boolean     |
 | Nullable    | ✔️ Yes      |
+| Description | test        |",
+  "| Name        | Description |
+| ----------- | ----------- |
+| Type        | Boolean[]   |
+| Nullable    | ❌ No        |
 | Description | test        |",
 ]
 `;

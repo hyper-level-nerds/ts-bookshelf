@@ -6,7 +6,7 @@ export function generateTableFromField(field: FieldData) {
     const rows: string[][] = [];
 
     rows.push(["Name", "Description"]);
-    rows.push(["Type", field.type.name]);
+    rows.push(["Type", `${field.type.name}${field.isArray ? "[]" : ""}`]);
     rows.push(["Nullable", field.userData.nullable ? "✔️ Yes" : "❌ No"]);
 
     if (field.userData.description) {
