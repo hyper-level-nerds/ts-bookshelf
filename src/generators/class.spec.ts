@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 import { generateForClass } from "@generators/class";
 import { DocField } from "@decorators/field";
+import { DocType } from "@root/decorators";
 
 describe("generateDocsForClass() Function", function () {
     it("should be defined", function () {
@@ -56,6 +57,41 @@ describe("generateDocsForClass() Function", function () {
         }
 
         const generatedData = generateForClass(MockedClass2, {
+            combineNestedFields: true,
+        });
+
+        expect(generatedData).toMatchSnapshot();
+    });
+
+    it("should not generate documentation for circular references", function () {
+        @DocType({
+            description: "test",
+        })
+        class ChildClass {
+            @DocField({
+                description: "This is a child field.",
+            })
+            public childField!: string;
+
+            @DocField({
+                description: "test",
+                nullable: false,
+            })
+            public field!: ChildClass;
+        }
+
+        @DocType({
+            description: "test",
+        })
+        class MockedClass {
+            @DocField({
+                description: "test",
+                nullable: false,
+            })
+            public test!: ChildClass;
+        }
+
+        const generatedData = generateForClass(MockedClass, {
             combineNestedFields: true,
         });
 

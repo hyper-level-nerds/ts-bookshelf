@@ -84,3 +84,55 @@ type 'MockedClass'.
 
 "
 `;
+
+exports[`generateDocsForClass() Function should not generate documentation for circular references 1`] = `
+"# Type \`MockedClass\`
+
+test
+
+## Fields
+
+- [test](#test)
+
+
+### \`test\`
+
+| Name        | Description                    |
+| ----------- | ------------------------------ |
+| Type        | [ChildClass](#type-childclass) |
+| Nullable    | ❌ No                           |
+| Description | test                           |
+
+
+
+## Type \`ChildClass\`
+
+test
+
+### Fields
+
+- [childField](#childfield)
+- [field](#field)
+
+
+#### \`childField\`
+
+| Name        | Description            |
+| ----------- | ---------------------- |
+| Type        | String                 |
+| Nullable    | ❌ No                   |
+| Description | This is a child field. |
+
+
+
+#### \`field\`
+
+| Name        | Description                    |
+| ----------- | ------------------------------ |
+| Type        | [ChildClass](#type-childclass) |
+| Nullable    | ❌ No                           |
+| Description | test                           |
+
+
+"
+`;
