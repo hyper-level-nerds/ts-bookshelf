@@ -1,7 +1,7 @@
 {
     "name": "ts-bookshelf",
     "description": "generate markdown-based documentation from typescript types",
-    "version": "1.0.0-next.2",
+    "version": "1.0.0-next.3",
     "license": "MIT",
     "source": "src/index.ts",
     "main": "dist/common.js",

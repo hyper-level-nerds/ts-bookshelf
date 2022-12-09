@@ -42,6 +42,10 @@ export function generateForClass(classType: ClassType, options?: DocumentOptions
     if (combineNestedFields) {
         const customClasses = fields.filter(f => f.isCustom);
         for (const customClass of customClasses) {
+            if (customClass.type === classType) {
+                continue;
+            }
+
             contents.push(
                 ...generateForClass(customClass.type, {
                     ...options,
