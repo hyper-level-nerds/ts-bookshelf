@@ -21,6 +21,7 @@ describe("TypeStorage class", () => {
             field: {
                 fieldName: "test",
                 type: String,
+                isCustom: false,
                 userData: {
                     description: "test",
                     nullable: false,
@@ -43,6 +44,7 @@ describe("TypeStorage class", () => {
             field: {
                 fieldName: "test",
                 type: String,
+                isCustom: false,
                 userData: {
                     description: "test",
                     nullable: false,
@@ -72,6 +74,40 @@ describe("TypeStorage class", () => {
         expect(target.classes[0].userData).toStrictEqual({
             description: "test",
             name: "test",
+        });
+    });
+
+    it("should provide correct default description for field data", () => {
+        target.collectFieldData({
+            classType: String,
+            field: {
+                fieldName: "test",
+                type: String,
+                isArray: false,
+                isCustom: false,
+                userData: {},
+            },
+        });
+
+        target.collectFieldData({
+            classType: String,
+            field: {
+                fieldName: "test2",
+                type: String,
+                isArray: true,
+                isCustom: false,
+                userData: {},
+            },
+        });
+
+        expect(target.classes[0].fieldMap["test"].userData).toStrictEqual({
+            nullable: false,
+            description: "field 'test' with type 'String'.",
+        });
+
+        expect(target.classes[0].fieldMap["test2"].userData).toStrictEqual({
+            nullable: false,
+            description: "field 'test2' with type 'String[]'.",
         });
     });
 });

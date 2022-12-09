@@ -7,10 +7,11 @@ import { generateTableFromField } from "@utils/generate-table";
 interface DocumentOptions {
     initialHeaderLevel?: number; // = 1
     withFieldTOC?: boolean; // = true
+    combineNestedFields?: boolean; // = false
 }
 
 export function generateForClass(classType: ClassType, options?: DocumentOptions) {
-    const { initialHeaderLevel = 1, withFieldTOC = true } = options || {};
+    const { initialHeaderLevel = 1, withFieldTOC = true, combineNestedFields = false } = options || {};
     const header = getHeaderGenerator(initialHeaderLevel);
 
     const targetClass = getTypeStorage().classes.find(classData => classData.classType === classType);
@@ -19,7 +20,7 @@ export function generateForClass(classType: ClassType, options?: DocumentOptions
     }
 
     const contents: string[] = [];
-    contents.push(`${header(targetClass.userData.name, 1)} (${targetClass.className})\n`);
+    contents.push(`${header(`Type \`${targetClass.userData.name}\``, 1)}\n`);
     contents.push(`${targetClass.userData.description}\n`);
     contents.push(`${header("Fields", 2)}\n`);
 
@@ -34,8 +35,20 @@ export function generateForClass(classType: ClassType, options?: DocumentOptions
 
     for (const field of fields) {
         contents.push(`${header(`\`${field.fieldName}\``, 3)}\n`);
-        contents.push(generateTableFromField(field));
+        contents.push(generateTableFromField(field, combineNestedFields));
         contents.push("\n\n");
+    }
+
+    if (combineNestedFields) {
+        const customClasses = fields.filter(f => f.isCustom);
+        for (const customClass of customClasses) {
+            contents.push(
+                ...generateForClass(customClass.type, {
+                    ...options,
+                    initialHeaderLevel: Math.min(initialHeaderLevel + 1, 6),
+                }).split("\n"),
+            );
+        }
     }
 
     return contents.join("\n");

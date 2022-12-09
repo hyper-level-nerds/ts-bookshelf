@@ -10,6 +10,7 @@ describe("generateTableFromField() Function", () => {
             generateTableFromField({
                 fieldName: "test",
                 type: String,
+                isCustom: false,
                 userData: {
                     description: "test",
                     nullable: false,
@@ -18,6 +19,7 @@ describe("generateTableFromField() Function", () => {
             generateTableFromField({
                 fieldName: "test",
                 type: Boolean,
+                isCustom: false,
                 userData: {
                     description: "test",
                     nullable: true,
@@ -27,6 +29,7 @@ describe("generateTableFromField() Function", () => {
                 fieldName: "test",
                 type: Boolean,
                 isArray: true,
+                isCustom: false,
                 userData: {
                     description: "test",
                 },
@@ -35,12 +38,14 @@ describe("generateTableFromField() Function", () => {
                 fieldName: "test",
                 type: Int,
                 isArray: true,
+                isCustom: false,
                 userData: {},
             }),
             generateTableFromField({
                 fieldName: "test",
                 type: Float,
                 isArray: true,
+                isCustom: false,
                 userData: {},
             }),
         ]).toMatchSnapshot();

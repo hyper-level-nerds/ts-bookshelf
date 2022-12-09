@@ -23,11 +23,16 @@ export function checkType(
     userType: AvailableTypes | undefined,
     className: string,
     propertyKey: string,
-): TargetTypes {
+): [targetType: TargetTypes, isArray: boolean, isCustom: boolean] {
     const staticTypeName = staticType.name;
+    const isCustomType = !ALL_TYPES.includes(staticType);
 
-    if (!AVAILABLE_TYPES.includes(staticType)) {
+    if (!isCustomType && !AVAILABLE_TYPES.includes(staticType)) {
         throw new DefinitionError(`Type '${staticTypeName}' is not supported.`, className, propertyKey);
+    }
+
+    if (isCustomType && !isRegistered(staticType)) {
+        throw new DefinitionError(`Type '${staticTypeName}' is not registered.`, className, propertyKey);
     }
 
     if (PRIMITIVE_TYPES.includes(staticType)) {
@@ -77,8 +82,8 @@ export function checkType(
             );
         }
 
-        const [arrayOfType] = userType;
-        if (arrayOfType === Number) {
+        const [itemType] = userType;
+        if (itemType === Number) {
             throw new DefinitionError(
                 `You can only use 'Int' or 'Float' for numeric array item.`,
                 className,
@@ -86,20 +91,16 @@ export function checkType(
             );
         }
 
-        if (!isRegistered(arrayOfType)) {
-            throw new DefinitionError(`Type '${nameOf(arrayOfType)}' is not registered.`, className, propertyKey);
+        if (!isRegistered(itemType)) {
+            throw new DefinitionError(`Type '${nameOf(itemType)}' is not registered.`, className, propertyKey);
         }
 
-        if (!ARRAY_ITEM_TYPES.includes(arrayOfType)) {
-            throw new DefinitionError(
-                `Array of type '${nameOf(arrayOfType)}' is not supported.`,
-                className,
-                propertyKey,
-            );
+        if (!ARRAY_ITEM_TYPES.includes(itemType)) {
+            throw new DefinitionError(`Array of type '${nameOf(itemType)}' is not supported.`, className, propertyKey);
         }
 
-        return arrayOfType;
+        return [itemType, true, !ALL_TYPES.includes(itemType)];
     }
 
-    return userType || staticType;
+    return [userType || staticType, false, isCustomType];
 }

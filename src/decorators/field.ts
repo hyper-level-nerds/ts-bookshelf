@@ -21,14 +21,15 @@ export function DocField(fieldData: DocumentFieldOptions): DecoratorType {
 
         const type = Reflect.getMetadata("design:type", target, propertyKey);
         const desiredType = fieldData.type?.();
-        const targetType = checkType(type, desiredType, className, propertyKey);
+        const [targetType, isArray, isCustom] = checkType(type, desiredType, className, propertyKey);
 
         getTypeStorage().collectFieldData({
             classType: target.constructor,
             field: {
                 type: targetType,
                 fieldName: propertyKey,
-                isArray: type === Array,
+                isArray,
+                isCustom,
                 userData: {
                     ...fieldData,
                 },

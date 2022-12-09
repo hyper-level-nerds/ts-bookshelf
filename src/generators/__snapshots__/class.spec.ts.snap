@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`generateDocsForClass() Function should generate documentation correctly 1`] = `
-"# MockedClass (MockedClass)
+"# Type \`MockedClass\`
 
 type 'MockedClass'.
 
@@ -22,6 +22,58 @@ type 'MockedClass'.
 
 
 ### \`test2\`
+
+| Name        | Description |
+| ----------- | ----------- |
+| Type        | Boolean     |
+| Nullable    | ✔️ Yes      |
+| Description | test        |
+
+
+"
+`;
+
+exports[`generateDocsForClass() Function should generate documentation correctly with nested fields 1`] = `
+"# Type \`MockedClass2\`
+
+type 'MockedClass2'.
+
+## Fields
+
+- [test](#test)
+
+
+### \`test\`
+
+| Name        | Description                      |
+| ----------- | -------------------------------- |
+| Type        | [MockedClass](#type-mockedclass) |
+| Nullable    | ❌ No                             |
+| Description | test                             |
+
+
+
+## Type \`MockedClass\`
+
+type 'MockedClass'.
+
+### Fields
+
+- [test](#test)
+- [test2](#test2)
+
+
+#### \`test\`
+
+| Name        | Description |
+| ----------- | ----------- |
+| Type        | Boolean     |
+| Nullable    | ❌ No        |
+| Description | test        |
+
+
+
+#### \`test2\`
 
 | Name        | Description |
 | ----------- | ----------- |

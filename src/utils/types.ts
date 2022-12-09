@@ -21,6 +21,7 @@ export interface BaseFieldData {
 export interface FieldData extends BaseFieldData {
     type: TargetTypes;
     isArray?: boolean;
+    isCustom: boolean;
 }
 
 export interface ClassData {

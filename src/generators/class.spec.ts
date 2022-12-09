@@ -32,6 +32,36 @@ describe("generateDocsForClass() Function", function () {
         expect(generatedData).toMatchSnapshot();
     });
 
+    it("should generate documentation correctly with nested fields", function () {
+        class MockedClass {
+            @DocField({
+                description: "test",
+                nullable: false,
+            })
+            public test!: boolean;
+
+            @DocField({
+                description: "test",
+                nullable: true,
+            })
+            public test2!: boolean;
+        }
+
+        class MockedClass2 {
+            @DocField({
+                description: "test",
+                nullable: false,
+            })
+            public test!: MockedClass;
+        }
+
+        const generatedData = generateForClass(MockedClass2, {
+            combineNestedFields: true,
+        });
+
+        expect(generatedData).toMatchSnapshot();
+    });
+
     it("should throw an error if the class is not registered", function () {
         expect(() => {
             generateForClass(String);

@@ -108,6 +108,17 @@ describe("@DocField() decorator", function () {
         });
     });
 
+    it("should throw an error if the field has unregistered type", function () {
+        expect(() => {
+            class UnregisteredType {}
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class MockedClass {
+                @DocField({})
+                public test!: UnregisteredType;
+            }
+        }).toThrowError("Type 'UnregisteredType' is not registered.");
+    });
+
     it("should throw an error if the field is a method", function () {
         expect(() => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -140,7 +151,7 @@ describe("@DocField() decorator", function () {
         }).toThrowError("Symbol keys are not supported yet!");
     });
 
-    it("should throw an error if the field does not have supported types", () => {
+    it("should throw an error if the field has not supported types", () => {
         expect(() => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class MockedClass {
