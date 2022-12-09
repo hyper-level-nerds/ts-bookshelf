@@ -38,6 +38,26 @@ describe("@DocField() decorator", function () {
         });
     });
 
+    it("should collect field data correctly with default values", function () {
+        class MockedClass {
+            @DocField()
+            public test!: boolean;
+        }
+
+        const target = getTypeStorage();
+        const stringClass = target.classes.find(c => c.classType === MockedClass);
+        if (!stringClass) {
+            throw new Error("String class not found!");
+        }
+
+        expect(stringClass.fieldMap).toHaveProperty("test");
+        expect(Object.keys(stringClass.fieldMap)).toHaveLength(1);
+        expect(stringClass.fieldMap["test"].userData).toStrictEqual({
+            description: "field 'test' with type 'Boolean'.",
+            nullable: false,
+        });
+    });
+
     it("should collect field with an array type correctly", () => {
         class MockedClass {
             @DocField({

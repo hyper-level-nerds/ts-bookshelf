@@ -24,4 +24,16 @@ describe("@DocType() Decorator", function () {
             description: "test",
         });
     });
+
+    it("should collect class data correctly with default values", function () {
+        DocType()(String);
+
+        const target = getTypeStorage();
+
+        expect(target.classes).toHaveLength(1);
+        expect(target.classes[0].userData).toStrictEqual({
+            name: "String",
+            description: "This is a type 'String'.",
+        });
+    });
 });

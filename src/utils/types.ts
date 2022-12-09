@@ -31,7 +31,7 @@ export interface ClassData {
 
     // user defined
     userData: {
-        name: string;
-        description: string;
+        name?: string;
+        description?: string;
     };
 }
