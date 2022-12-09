@@ -1,8 +1,10 @@
+import type { Float, Int } from "@utils/primitives";
+
 export type DecoratorType = PropertyDecorator & MethodDecorator;
 export type ClassType = Function;
 
 type TypeOrArray<T> = T | [T];
-export type TargetTypes = typeof String | typeof Boolean;
+export type TargetTypes = typeof String | typeof Boolean | typeof Int | typeof Float;
 export type AvailableTypes = TypeOrArray<TargetTypes>;
 export type TypeFn = () => AvailableTypes;
 

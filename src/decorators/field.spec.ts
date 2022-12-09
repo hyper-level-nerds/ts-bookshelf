@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 import { DocField } from "@decorators/field";
 import { getTypeStorage } from "@utils/type-storage";
+import { DocType } from "@decorators/class";
 
 describe("@DocField() decorator", function () {
     it("should be defined", function () {
@@ -150,7 +151,29 @@ describe("@DocField() decorator", function () {
                 })
                 public test!: object;
             }
-        }).toThrowError("Only String and Boolean types are supported.");
+        }).toThrowError("Type 'Object' is not supported.");
+    });
+
+    it("should throw an error if the field has 'Number' type", () => {
+        expect(() => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class MockedClass {
+                @DocField({
+                    type: () => Number,
+                })
+                public test!: number;
+            }
+        }).toThrowError("Given type 'Number' is not supported. Use 'Int' or 'Float' instead.");
+
+        expect(() => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class MockedClass {
+                @DocField({
+                    type: () => Object,
+                })
+                public test!: number;
+            }
+        }).toThrowError("You can only use 'Int' or 'Float' for number fields.");
     });
 
     it("should throw an error if the field has an array type but type function is not provided", () => {
@@ -164,7 +187,22 @@ describe("@DocField() decorator", function () {
                 })
                 public test!: string[];
             }
-        }).toThrowError("Should provide `type` option for array fields. (MockedClass.test)");
+        }).toThrowError("Should provide 'type' option for array fields.");
+    });
+
+    it("should throw an error if the field has an array type but type function returns 'Number' type", () => {
+        expect(() => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class MockedClass {
+                @DocField({
+                    description: "test",
+                    nullable: false,
+                    defaultValue: "test",
+                    type: () => [Number],
+                })
+                public test!: number[];
+            }
+        }).toThrowError("You can only use 'Int' or 'Float' for numeric array item.");
     });
 
     it("should throw an error if the field has an array type but type function returns non-array type", () => {
@@ -179,12 +217,10 @@ describe("@DocField() decorator", function () {
                 })
                 public test!: string[];
             }
-        }).toThrowError(
-            "Returned value from `type` option should be an array when the field is an array. (MockedClass.test)",
-        );
+        }).toThrowError("Returned value from 'type' option should be an array when the field is an array.");
     });
 
-    it("should throw an error if the field has an array type but type function returns array with more than 1 type", () => {
+    it("should throw an error if the field has an array type but type function returns array of more than 1 type", () => {
         expect(() => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class MockedClass {
@@ -196,9 +232,43 @@ describe("@DocField() decorator", function () {
                 })
                 public test!: string[];
             }
-        }).toThrowError(
-            "Returned value from `type` option should have only one item when the field is an array. (MockedClass.test)",
-        );
+        }).toThrowError("Returned value from 'type' option should have only one item when the field is an array.");
+    });
+
+    it("should throw an error if the field has an array type but type function returns array of unregistered class", () => {
+        expect(() => {
+            class UnregisteredClass {}
+
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class MockedClass {
+                @DocField({
+                    description: "test",
+                    nullable: false,
+                    defaultValue: "test",
+                    type: () => [UnregisteredClass] as any,
+                })
+                public test!: string[];
+            }
+        }).toThrowError("Type 'UnregisteredClass' is not registered.");
+
+        expect(() => {
+            @DocType({
+                name: "RegisteredClass",
+                description: "",
+            })
+            class UnregisteredClass {}
+
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class MockedClass {
+                @DocField({
+                    description: "test",
+                    nullable: false,
+                    defaultValue: "test",
+                    type: () => [UnregisteredClass] as any,
+                })
+                public test!: string[];
+            }
+        }).not.toThrowError("Type 'UnregisteredClass' is not registered.");
     });
 
     it("should throw an error if the field type is not matched with returned type from type function", () => {
@@ -213,7 +283,7 @@ describe("@DocField() decorator", function () {
                 })
                 public test!: string;
             }
-        }).toThrowError("Type is not matching. (expected: Boolean, actual: String) (MockedClass.test)");
+        }).toThrowError("Type is not matching. (user-defined: Boolean, actual: String)");
 
         expect(() => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -226,6 +296,6 @@ describe("@DocField() decorator", function () {
                 })
                 public test!: string;
             }
-        }).toThrowError("Type is not matching. (expected: Array, actual: String) (MockedClass.test)");
+        }).toThrowError("Type is not matching. (user-defined: Boolean[], actual: String)");
     });
 });

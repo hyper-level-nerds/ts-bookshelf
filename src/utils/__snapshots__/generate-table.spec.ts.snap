@@ -17,5 +17,13 @@ exports[`generateTableFromField() Function should generate a table correctly 1`]
 | Type        | Boolean[]   |
 | Nullable    | ❌ No        |
 | Description | test        |",
+  "| Name     | Description |
+| -------- | ----------- |
+| Type     | Int[]       |
+| Nullable | ❌ No        |",
+  "| Name     | Description |
+| -------- | ----------- |
+| Type     | Float[]     |
+| Nullable | ❌ No        |",
 ]
 `;

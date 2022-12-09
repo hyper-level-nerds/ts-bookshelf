@@ -1,4 +1,5 @@
 import { generateTableFromField } from "./generate-table";
+import { Float, Int } from "@utils/primitives";
 
 describe("generateTableFromField() Function", () => {
     it("should be defined", () => expect(generateTableFromField).toBeDefined());
@@ -29,6 +30,18 @@ describe("generateTableFromField() Function", () => {
                 userData: {
                     description: "test",
                 },
+            }),
+            generateTableFromField({
+                fieldName: "test",
+                type: Int,
+                isArray: true,
+                userData: {},
+            }),
+            generateTableFromField({
+                fieldName: "test",
+                type: Float,
+                isArray: true,
+                userData: {},
             }),
         ]).toMatchSnapshot();
     });
