@@ -1,15 +1,15 @@
 import "reflect-metadata";
 
-import { generateDocsForClass } from "@generators/class";
+import { generateForClass } from "@generators/class";
 import { DocField } from "@decorators/field";
 
 describe("generateDocsForClass() Function", function () {
     it("should be defined", function () {
-        expect(generateDocsForClass).toBeDefined();
+        expect(generateForClass).toBeDefined();
     });
 
     it("should be a function", function () {
-        expect(generateDocsForClass).toBeInstanceOf(Function);
+        expect(generateForClass).toBeInstanceOf(Function);
     });
 
     it("should generate documentation correctly", function () {
@@ -27,14 +27,14 @@ describe("generateDocsForClass() Function", function () {
             public test2!: boolean;
         }
 
-        const generatedData = generateDocsForClass(MockedClass);
+        const generatedData = generateForClass(MockedClass);
 
         expect(generatedData).toMatchSnapshot();
     });
 
     it("should throw an error if the class is not registered", function () {
         expect(() => {
-            generateDocsForClass(String);
+            generateForClass(String);
         }).toThrowError("Class 'String' is not registered!");
     });
 });
