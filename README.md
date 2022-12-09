@@ -11,7 +11,7 @@
 
 <div align="center">
     <a href="https://www.npmjs.com/package/ts-bookshelf">
-        <img alt="npm (tag)" src="https://img.shields.io/npm/v/ts-bookshelf?style=flat-square">
+        <img alt="npm" src="https://img.shields.io/npm/v/ts-bookshelf?style=flat-square" />
     </a>
     <a href="https://github.com/hyper-level-nerds/ts-bookshelf/blob/main/LICENSE">
         <img src="https://img.shields.io/github/license/hyper-level-nerds/ts-bookshelf.svg?style=flat-square" alt="MIT License" />
@@ -56,13 +56,12 @@ import "reflect-metadata";
 ```json5
 // in your tsconfig.json
 {
-  "compilerOptions": {
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
-  }
+    compilerOptions: {
+        emitDecoratorMetadata: true,
+        experimentalDecorators: true,
+    },
 }
 ```
-
 
 ## Usage
 
@@ -102,6 +101,6 @@ this is a description of my type
 | Name        | Description           |
 | ----------- | --------------------- |
 | Type        | String                |
-| Nullable    | ❌ No                  |
+| Nullable    | ❌ No                 |
 | Description | this is a description |
 ```
