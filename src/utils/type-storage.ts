@@ -23,7 +23,8 @@ class TypeStorage {
         newField.userData = {
             ...newField.userData,
             description:
-                newField.userData.description || `field '${newField.fieldName}' with type '${newField.type.name}'.`,
+                newField.userData.description ||
+                `field '${newField.fieldName}' with type '${newField.type.name}${newField.isArray ? "[]" : ""}'.`,
             nullable: newField.userData.nullable || false,
         };
 
