@@ -26,4 +26,81 @@
 
 ## Introduction
 
-`ts-bookshelf` is a library for generating markdown documentation from typescript types. 
+`ts-bookshelf` is a library for generating markdown documentation from typescript types.
+
+## Installation
+
+```bash
+$ npm install ts-bookshelf@next
+
+# or
+
+$ yarn add ts-bookshelf@next
+```
+
+and you should install and import `reflect-metadata` and configure related things in your project:
+
+```bash
+$ npm install reflect-metadata
+
+# or
+
+$ yarn add reflect-metadata
+```
+
+```ts
+import "reflect-metadata";
+```
+
+```json5
+// in your tsconfig.json
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  }
+}
+```
+
+
+## Usage
+
+```ts
+import "reflect-metadata";
+import { DocField, DocType, generateDocsForClass } from "ts-bookshelf";
+import * as fs from "fs";
+
+@DocType({
+    name: "MyType",
+    description: "this is a description of my type",
+})
+class MyType {
+    @DocField({
+        description: "this is a description",
+    })
+    public myProperty!: string;
+}
+
+// ...
+
+const content = generateDocsForClass(MyType);
+fs.writeFileSync("docs-for-MyType.md", content);
+```
+
+then `docs-for-MyType.md` will be:
+
+```md
+# MyType (MyType)
+
+this is a description of my type
+
+## Fields
+
+### `myProperty`
+
+| Name        | Description           |
+| ----------- | --------------------- |
+| Type        | String                |
+| Nullable    | ❌ No                  |
+| Description | this is a description |
+```
