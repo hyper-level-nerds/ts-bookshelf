@@ -8,14 +8,12 @@
     "module": "dist/common.m.js",
     "esmodule": "dist/common.esm.js",
     "typings": "dist/index.d.ts",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/hyper-level-nerds/ts-bookshelf.git"
-    },
+    "repository": "github:hyper-level-nerds/ts-bookshelf",
     "scripts": {
         "build": "run-s build:*",
         "build:bundle": "microbundle --name ts-bookshelf -f cjs,es,modern --target node --no-compress --tsconfig ./tsconfig.build.json",
         "build:copy": "ts-node scripts/build-copy.ts",
+        "postversion": "copyfiles dist/package.json .",
         "dev": "node -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
         "watch": "node --watch -r ts-node/register -r tsconfig-paths/register ./src/index.ts",
         "semantic-release": "semantic-release",
@@ -29,7 +27,7 @@
     "devDependencies": {
         "@semantic-release/commit-analyzer": "^9.0.2",
         "@semantic-release/git": "^10.0.1",
-        "@semantic-release/github": "^8.0.6",
+        "@semantic-release/github": "^8.0.7",
         "@semantic-release/npm": "^9.0.1",
         "@semantic-release/release-notes-generator": "^10.0.3",
         "@types/fs-extra": "^9.0.13",
@@ -39,6 +37,7 @@
         "@typescript-eslint/eslint-plugin": "^5.38.0",
         "@typescript-eslint/parser": "^5.38.0",
         "conventional-changelog-conventionalcommits": "^5.0.0",
+        "copyfiles": "^2.4.1",
         "eslint": "^8.24.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",

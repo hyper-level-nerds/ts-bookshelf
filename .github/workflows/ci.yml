@@ -4,7 +4,7 @@ on:
     push:
         branches:
             - main
-            - dev
+            - next
 
 jobs:
     build-and-deploy:
@@ -74,7 +74,11 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-              run: npx semantic-release
+                  GIT_AUTHOR_NAME: Sophia
+                  GIT_AUTHOR_EMAIL: me@sophia-dev.io
+                  GIT_COMMITTER_NAME: Sophia
+                  GIT_COMMITTER_EMAIL: me@sophia-dev.io
+              run: npx semantic-release --debug
 
             - uses: sarisia/actions-status-discord@v1
               if: always()
