@@ -27,3 +27,20 @@ exports[`generateTableFromField() Function should generate a table correctly 1`]
 | Nullable | ❌ No        |",
 ]
 `;
+
+exports[`generateTableFromField() Function should generate a table with min and max values correctly 1`] = `
+[
+  "| Name     | Description |
+| -------- | ----------- |
+| Type     | Int         |
+| Nullable | ❌ No        |
+| Minimum  | 0           |
+| Maximum  | 100         |",
+  "| Name     | Description |
+| -------- | ----------- |
+| Type     | Float       |
+| Nullable | ❌ No        |
+| Minimum  | 0           |
+| Maximum  | 100         |",
+]
+`;

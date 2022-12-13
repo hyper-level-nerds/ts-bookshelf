@@ -168,7 +168,7 @@ describe("@DocField() decorator", function () {
                 })
                 public [symbol]!: string;
             }
-        }).toThrowError("Symbol keys are not supported yet!");
+        }).toThrowError("Symbol keys are not supported yet");
     });
 
     it("should throw an error if the field has not supported types", () => {
@@ -328,5 +328,35 @@ describe("@DocField() decorator", function () {
                 public test!: string;
             }
         }).toThrowError("Type is not matching. (user-defined: Boolean[], actual: String)");
+    });
+
+    it("should throw an error if the field has min or max property but type function returns numeric type", () => {
+        expect(() => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class MockedClass {
+                @DocField({
+                    description: "test",
+                    nullable: false,
+                    defaultValue: "test",
+                    type: () => String,
+                    min: 1,
+                })
+                public test!: string;
+            }
+        }).toThrowError("Min and max values are only supported for numeric types!");
+
+        expect(() => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class MockedClass {
+                @DocField({
+                    description: "test",
+                    nullable: false,
+                    defaultValue: "test",
+                    type: () => String,
+                    max: 1,
+                })
+                public test!: string;
+            }
+        }).toThrowError("Min and max values are only supported for numeric types!");
     });
 });

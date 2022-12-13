@@ -2,6 +2,7 @@ import { DecoratorType, FieldUserData, TypeFn } from "@utils/types";
 import { getTypeStorage } from "@utils/type-storage";
 import { DefinitionError } from "@utils/definition-error";
 import { checkType } from "@utils/check-type";
+import { Float, Int } from "@utils/primitives";
 
 interface DocumentFieldOptions extends FieldUserData {
     type?: TypeFn;
@@ -10,7 +11,7 @@ interface DocumentFieldOptions extends FieldUserData {
 export function DocField(fieldData?: DocumentFieldOptions): DecoratorType {
     return <T>(target: object, propertyKey: string | symbol, descriptor?: TypedPropertyDescriptor<T>) => {
         if (typeof propertyKey === "symbol") {
-            throw new Error("Symbol keys are not supported yet!");
+            throw new Error("Symbol keys are not supported yet");
         }
 
         const className = target.constructor.name;
@@ -22,6 +23,16 @@ export function DocField(fieldData?: DocumentFieldOptions): DecoratorType {
         const type = Reflect.getMetadata("design:type", target, propertyKey);
         const desiredType = fieldData?.type?.();
         const [targetType, isArray, isCustom] = checkType(type, desiredType, className, propertyKey);
+
+        if (targetType !== Int && targetType !== Float) {
+            if (fieldData?.min || fieldData?.max) {
+                throw new DefinitionError(
+                    "Min and max values are only supported for numeric types!",
+                    className,
+                    propertyKey,
+                );
+            }
+        }
 
         getTypeStorage().collectFieldData({
             classType: target.constructor,

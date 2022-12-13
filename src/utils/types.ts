@@ -1,5 +1,11 @@
 import type { Float, Int } from "@utils/primitives";
 
+export type Fn<Args, Return> = Args extends void
+    ? () => Return
+    : Args extends any[]
+    ? (...args: Args) => Return
+    : (args: Args) => Return;
+
 export type DecoratorType = PropertyDecorator & MethodDecorator;
 export type ClassType = Function;
 
@@ -12,6 +18,8 @@ export interface FieldUserData {
     description?: string;
     nullable?: boolean;
     defaultValue?: any;
+    min?: number;
+    max?: number;
 }
 
 export interface BaseFieldData {

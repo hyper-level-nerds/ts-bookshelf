@@ -50,4 +50,27 @@ describe("generateTableFromField() Function", () => {
             }),
         ]).toMatchSnapshot();
     });
+
+    it("should generate a table with min and max values correctly", () => {
+        expect([
+            generateTableFromField({
+                fieldName: "test",
+                type: Int,
+                isCustom: false,
+                userData: {
+                    min: 0,
+                    max: 100,
+                },
+            }),
+            generateTableFromField({
+                fieldName: "test",
+                type: Float,
+                isCustom: false,
+                userData: {
+                    min: 0,
+                    max: 100,
+                },
+            }),
+        ]).toMatchSnapshot();
+    });
 });
