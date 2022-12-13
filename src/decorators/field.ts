@@ -17,7 +17,7 @@ export function DocField(fieldData?: DocumentFieldOptions): DecoratorType {
         const className = target.constructor.name;
         const isMethod = Boolean(descriptor && descriptor.value);
         if (isMethod) {
-            throw new DefinitionError("Field decorator can only be used on properties!", className, propertyKey);
+            throw new DefinitionError("Field decorator can only be used on properties", className, propertyKey);
         }
 
         const type = Reflect.getMetadata("design:type", target, propertyKey);
@@ -27,7 +27,7 @@ export function DocField(fieldData?: DocumentFieldOptions): DecoratorType {
         if (targetType !== Int && targetType !== Float) {
             if (fieldData?.min || fieldData?.max) {
                 throw new DefinitionError(
-                    "Min and max values are only supported for numeric types!",
+                    "Min and max values are only supported for numeric types",
                     className,
                     propertyKey,
                 );

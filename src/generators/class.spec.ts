@@ -101,6 +101,6 @@ describe("generateDocsForClass() Function", function () {
     it("should throw an error if the class is not registered", function () {
         expect(() => {
             generateForClass(String);
-        }).toThrowError("Class 'String' is not registered!");
+        }).toThrowError("Class 'String' is not registered");
     });
 });

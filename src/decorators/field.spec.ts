@@ -26,7 +26,7 @@ describe("@DocField() decorator", function () {
         const target = getTypeStorage();
         const stringClass = target.classes.find(c => c.classType === MockedClass);
         if (!stringClass) {
-            throw new Error("String class not found!");
+            throw new Error("String class not found");
         }
 
         expect(stringClass.fieldMap).toHaveProperty("test");
@@ -47,7 +47,7 @@ describe("@DocField() decorator", function () {
         const target = getTypeStorage();
         const stringClass = target.classes.find(c => c.classType === MockedClass);
         if (!stringClass) {
-            throw new Error("String class not found!");
+            throw new Error("String class not found");
         }
 
         expect(stringClass.fieldMap).toHaveProperty("test");
@@ -72,7 +72,7 @@ describe("@DocField() decorator", function () {
         const target = getTypeStorage();
         const stringClass = target.classes.find(c => c.classType === MockedClass);
         if (!stringClass) {
-            throw new Error("String class not found!");
+            throw new Error("String class not found");
         }
 
         expect(stringClass.fieldMap).toHaveProperty("test");
@@ -92,7 +92,7 @@ describe("@DocField() decorator", function () {
         const target = getTypeStorage();
         const stringClass = target.classes.find(c => c.classType === MockedClass);
         if (!stringClass) {
-            throw new Error("String class not found!");
+            throw new Error("String class not found");
         }
 
         expect(stringClass.fieldMap).toHaveProperty("test");
@@ -116,7 +116,7 @@ describe("@DocField() decorator", function () {
         const target = getTypeStorage();
         const stringClass = target.classes.find(c => c.classType === MockedClass);
         if (!stringClass) {
-            throw new Error("String class not found!");
+            throw new Error("String class not found");
         }
 
         expect(stringClass.fieldMap).toHaveProperty("test");
@@ -152,7 +152,7 @@ describe("@DocField() decorator", function () {
                     return;
                 }
             }
-        }).toThrowError("Field decorator can only be used on properties!");
+        }).toThrowError("Field decorator can only be used on properties");
     });
 
     it("should throw an error if the field has a symbol as a name", () => {
@@ -343,7 +343,7 @@ describe("@DocField() decorator", function () {
                 })
                 public test!: string;
             }
-        }).toThrowError("Min and max values are only supported for numeric types!");
+        }).toThrowError("Min and max values are only supported for numeric types");
 
         expect(() => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -357,6 +357,6 @@ describe("@DocField() decorator", function () {
                 })
                 public test!: string;
             }
-        }).toThrowError("Min and max values are only supported for numeric types!");
+        }).toThrowError("Min and max values are only supported for numeric types");
     });
 });
